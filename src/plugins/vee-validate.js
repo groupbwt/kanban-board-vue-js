@@ -1,6 +1,6 @@
-import { extend, configure } from "vee-validate";
-import { required } from "vee-validate/dist/rules";
-import i18n from "./i18n";
+import { extend, configure } from 'vee-validate';
+import { required } from 'vee-validate/dist/rules';
+import i18n from './i18n';
 
 configure({
   defaultMessage: (field, values) => {
@@ -12,4 +12,4 @@ configure({
 });
 
 // Install required rule and message.
-extend("required", required);
+extend('required', required);

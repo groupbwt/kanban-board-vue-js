@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <KanbanBoard/>
+    <KanbanBoard />
   </div>
 </template>
 
 <script>
-import KanbanBoard from "./components/KanbanBoard.vue";
+import KanbanBoard from './components/KanbanBoard.vue';
 
 export default {
   name: 'App',
@@ -13,5 +13,5 @@ export default {
   components: {
     KanbanBoard
   }
-}
+};
 </script>

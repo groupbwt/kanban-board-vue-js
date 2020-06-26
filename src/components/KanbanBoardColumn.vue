@@ -4,26 +4,29 @@
       <div class="kanban-board__column-block">
         <ValidationProvider
           ref="titleForm"
+          v-slot="{ errors, failed }"
           name="title"
           mode="passive"
           rules="required"
-          v-slot="{ errors, failed }"
         >
           <input
             v-model="formData.columnTitle"
             type="text"
             :placeholder="$t('placeholders.title')"
-            :class="['kanban-board__title-input', {'is-invalid': failed}]"
+            :class="['kanban-board__title-input', { 'is-invalid': failed }]"
             @keyup.enter="submitTitleForm"
-          >
+          />
           <div class="invalid-feedback">{{ errors[0] }}</div>
         </ValidationProvider>
       </div>
       <div class="kanban-board__column-footer">
-        <button class="kanban-board__save-button" @click="submitTitleForm">{{ $t("buttons.saveColumn") }}</button>
+        <button
+          class="kanban-board__save-button"
+          @click="submitTitleForm"
+        >{{ $t('buttons.saveColumn') }}</button>
         <div class="spacer"></div>
         <button class="kanban-board__close-button" @click="deleteColumn">
-          <img src="../assets/static/icons/cross.svg" alt="">
+          <img src="../assets/static/icons/cross.svg" alt />
         </button>
       </div>
     </template>
@@ -31,7 +34,7 @@
       <div class="kanban-board__column-header">
         <h4>{{ title }}</h4>
         <button class="kanban-board__icon-button" @click="deleteColumn">
-          <img src="../assets/static/icons/delete.svg" alt="">
+          <img src="../assets/static/icons/delete.svg" alt />
         </button>
       </div>
 
@@ -40,7 +43,7 @@
           v-for="(title, index) in cards"
           :key="index"
           :title="title"
-          @update-card="(data) => updateCard(index, data)"
+          @update-card="data => updateCard(index, data)"
           @delete-card="() => deleteCard(index)"
         />
       </ul>
@@ -48,16 +51,16 @@
       <div v-if="showCardForm" class="kanban-board__column-block">
         <ValidationProvider
           ref="cardForm"
+          v-slot="{ errors, failed }"
           name="card"
           mode="passive"
           rules="required"
-          v-slot="{ errors, failed }"
         >
           <textarea
             ref="cardField"
             v-model="formData.cardTitle"
             :placeholder="$t('placeholders.card')"
-            :class="['kanban-board__title-input', {'is-invalid': failed}]"
+            :class="['kanban-board__title-input', { 'is-invalid': failed }]"
             @keyup.enter="submitCardForm"
           ></textarea>
           <div class="invalid-feedback">{{ errors[0] }}</div>
@@ -66,15 +69,19 @@
 
       <div class="kanban-board__column-footer">
         <template v-if="showCardForm">
-          <button class="kanban-board__save-button" @click="submitCardForm">{{ $t("buttons.saveCard") }}</button>
+          <button
+            class="kanban-board__save-button"
+            @click="submitCardForm"
+          >{{ $t('buttons.saveCard') }}</button>
           <div class="spacer"></div>
           <button class="kanban-board__close-button" @click="disableCardForm">
-            <img src="../assets/static/icons/cross.svg" alt="">
+            <img src="../assets/static/icons/cross.svg" alt />
           </button>
         </template>
         <template v-else>
           <button class="kanban-board__add-button" @click="enableCardForm">
-            <img src="../assets/static/icons/plus.svg" alt="">{{ $t("buttons.addCard") }}
+            <img src="../assets/static/icons/plus.svg" alt />
+            {{ $t('buttons.addCard') }}
           </button>
         </template>
       </div>
@@ -83,8 +90,8 @@
 </template>
 
 <script>
-import { ValidationProvider } from "vee-validate";
-import KanbanBoardColumnCard from "./KanbanBoardColumnCard.vue";
+import { ValidationProvider } from 'vee-validate';
+import KanbanBoardColumnCard from './KanbanBoardColumnCard.vue';
 
 export default {
   name: 'KanbanBoardColumn',
@@ -111,8 +118,8 @@ export default {
       formData: {
         columnTitle: '',
         cardTitle: ''
-      },
-    }
+      }
+    };
   },
 
   computed: {
@@ -156,12 +163,16 @@ export default {
     },
 
     updateCard(index, data) {
-      let cards = this.cards.slice(0, index).concat([data, ...this.cards.slice(index + 1)]);
+      let cards = this.cards
+        .slice(0, index)
+        .concat([data, ...this.cards.slice(index + 1)]);
       this.$emit('update-column', { cards });
     },
 
     deleteCard(index) {
-      let cards = this.cards.slice(0, index).concat(this.cards.slice(index + 1));
+      let cards = this.cards
+        .slice(0, index)
+        .concat(this.cards.slice(index + 1));
       this.$emit('update-column', { cards });
     },
 
@@ -179,5 +190,5 @@ export default {
       this.$emit('delete-column');
     }
   }
-}
+};
 </script>

@@ -3,19 +3,19 @@
     <ValidationProvider
       v-if="editMode"
       ref="editForm"
+      v-slot="{ errors, failed }"
       name="card"
       mode="passive"
       rules="required"
-      v-slot="{ errors, failed }"
     >
       <input
         ref="editField"
         v-model="formData.title"
         type="text"
         :placeholder="$t('placeholders.card')"
-        :class="['kanban-board__edit-input', {'is-invalid': failed}]"
+        :class="['kanban-board__edit-input', { 'is-invalid': failed }]"
         @keyup.enter="submitEditForm"
-      >
+      />
       <div class="invalid-feedback">{{ errors[0] }}</div>
     </ValidationProvider>
 
@@ -25,17 +25,17 @@
 
     <div class="kanban-board__card-actions">
       <button class="kanban-board__icon-button" @click="toggleEditForm">
-        <img src="../assets/static/icons/pencil.svg" alt="">
+        <img src="../assets/static/icons/pencil.svg" alt />
       </button>
       <button class="kanban-board__icon-button" @click="deleteCard">
-        <img src="../assets/static/icons/delete.svg" alt="">
+        <img src="../assets/static/icons/delete.svg" alt />
       </button>
     </div>
   </li>
 </template>
 
 <script>
-import { ValidationProvider } from "vee-validate";
+import { ValidationProvider } from 'vee-validate';
 
 export default {
   name: 'KanbanBoardColumnCard',
@@ -56,8 +56,8 @@ export default {
       editMode: false,
       formData: {
         title: ''
-      },
-    }
+      }
+    };
   },
 
   methods: {
@@ -97,5 +97,5 @@ export default {
       this.$emit('delete-card');
     }
   }
-}
+};
 </script>
