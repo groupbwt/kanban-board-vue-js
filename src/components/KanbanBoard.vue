@@ -1,7 +1,7 @@
 <template>
   <ul class="kanban-board__columns-list">
     <KanbanBoardColumn
-      v-for="(column, index) in columns"
+      v-for="(column, index) in kanbanBoard"
       :key="index"
       :title="column.title"
       :cards="column.cards"
@@ -30,36 +30,51 @@ export default {
     KanbanBoardColumn,
   },
 
+  data() {
+    return {
+      kanbanBoard: [],
+    };
+  },
+
   computed: {
     columns() {
       return this.$store.state.columns;
     },
   },
 
+  watch: {
+    columns() {
+      this.kanbanBoard = this.columns;
+    },
+  },
+
+  created() {
+    this.kanbanBoard = this.columns;
+  },
+
   methods: {
     addColumn() {
-      let columns = [
-        ...this.columns,
+      this.kanbanBoard = [
+        ...this.kanbanBoard,
         {
           title: '',
           cards: [],
         },
       ];
-      this.setColumns(columns);
     },
 
     updateColumn(index, data) {
-      let newColumn = Object.assign({}, this.columns[index], data);
-      let columns = this.columns
+      let newColumn = Object.assign({}, this.kanbanBoard[index], data);
+      let columns = this.kanbanBoard
         .slice(0, index)
-        .concat([newColumn, ...this.columns.slice(index + 1)]);
+        .concat([newColumn, ...this.kanbanBoard.slice(index + 1)]);
       this.setColumns(columns);
     },
 
     deleteColumn(index) {
-      let columns = this.columns
+      let columns = this.kanbanBoard
         .slice(0, index)
-        .concat(this.columns.slice(index + 1));
+        .concat(this.kanbanBoard.slice(index + 1));
       this.setColumns(columns);
     },
 
