@@ -44,6 +44,7 @@
         group="cards"
         ghost-class="kanban-board__card-wrapper--ghost"
         drag-class="kanban-board__card-wrapper--drag"
+        filter=".kanban-board__card-wrapper--edit-mode"
       >
         <KanbanBoardColumnCard
           v-for="(cardTitle, index) in columnItems"
