@@ -20,11 +20,9 @@
         </ValidationProvider>
       </div>
       <div class="kanban-board__column-footer">
-        <!-- prettier-ignore -->
-        <button
-          class="kanban-board__save-button"
-          @click="submitTitleForm"
-        >{{ $t('buttons.saveColumn') }}</button>
+        <button class="kanban-board__save-button" @click="submitTitleForm">
+          {{ $t('buttons.saveColumn') }}
+        </button>
         <div class="spacer"></div>
         <button class="kanban-board__close-button" @click="deleteColumn">
           <img src="../assets/static/icons/cross.svg" alt />
@@ -39,15 +37,22 @@
         </button>
       </div>
 
-      <ul class="kanban-board__cards-list">
+      <Draggable
+        v-model="columnItems"
+        class="kanban-board__cards-list"
+        tag="ul"
+        group="cards"
+        ghost-class="kanban-board__card-wrapper--ghost"
+        drag-class="kanban-board__card-wrapper--drag"
+      >
         <KanbanBoardColumnCard
-          v-for="(cardTitle, index) in cards"
+          v-for="(cardTitle, index) in columnItems"
           :key="index"
           :title="cardTitle"
           @update-card="(data) => updateCard(index, data)"
           @delete-card="() => deleteCard(index)"
         />
-      </ul>
+      </Draggable>
 
       <div v-if="showCardForm" class="kanban-board__column-block">
         <ValidationProvider
@@ -70,11 +75,9 @@
 
       <div class="kanban-board__column-footer">
         <template v-if="showCardForm">
-          <!-- prettier-ignore -->
-          <button
-            class="kanban-board__save-button"
-            @click="submitCardForm"
-          >{{ $t('buttons.saveCard') }}</button>
+          <button class="kanban-board__save-button" @click="submitCardForm">
+            {{ $t('buttons.saveCard') }}
+          </button>
           <div class="spacer"></div>
           <button class="kanban-board__close-button" @click="disableCardForm">
             <img src="../assets/static/icons/cross.svg" alt />
@@ -94,6 +97,7 @@
 <script>
 import { ValidationProvider } from 'vee-validate';
 import KanbanBoardColumnCard from './KanbanBoardColumnCard.vue';
+import Draggable from 'vuedraggable';
 
 export default {
   name: 'KanbanBoardColumn',
@@ -101,6 +105,7 @@ export default {
   components: {
     ValidationProvider,
     KanbanBoardColumnCard,
+    Draggable,
   },
 
   props: {
@@ -125,8 +130,16 @@ export default {
   },
 
   computed: {
+    columnItems: {
+      get() {
+        return this.cards;
+      },
+      set(cards) {
+        this.$emit('update-column', { cards });
+      },
+    },
     showTitleForm() {
-      return !this.title && !this.cards.length;
+      return !this.title && !this.columnItems.length;
     },
   },
 
@@ -157,7 +170,7 @@ export default {
       const validationResult = await this.$refs.cardForm.validate();
 
       if (validationResult.valid) {
-        let cards = [...this.cards, this.formData.cardTitle];
+        let cards = [...this.columnItems, this.formData.cardTitle];
         this.$emit('update-column', { cards });
         this.showCardForm = false;
         this.resetCardForm();
@@ -165,16 +178,16 @@ export default {
     },
 
     updateCard(index, data) {
-      let cards = this.cards
+      let cards = this.columnItems
         .slice(0, index)
-        .concat([data, ...this.cards.slice(index + 1)]);
+        .concat([data, ...this.columnItems.slice(index + 1)]);
       this.$emit('update-column', { cards });
     },
 
     deleteCard(index) {
-      let cards = this.cards
+      let cards = this.columnItems
         .slice(0, index)
-        .concat(this.cards.slice(index + 1));
+        .concat(this.columnItems.slice(index + 1));
       this.$emit('update-column', { cards });
     },
 

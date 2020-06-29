@@ -80,33 +80,25 @@ body {
     margin-bottom: 4px;
   }
 
-  &:not(.gu-mirror):hover {
-    .kanban-board__card {
-      width: calc(100% - 50px);
-    }
+  &:hover:not(.kanban-board__card-wrapper--drag) .kanban-board__card {
+    width: calc(100% - 50px);
+  }
+}
+
+.kanban-board__card-wrapper--ghost {
+  background: #C9D2D9;
+
+  .kanban-board__card {
+    opacity: 0;
   }
 
-  &.gu-mirror {
-    list-style: none;
-    box-sizing: border-box;
-    opacity: 1;
+  .kanban-board__card-actions {
+    display: none;
   }
+}
 
-  &.gu-transit {
-    background: #6B808C;
-
-    .kanban-board__card {
-      opacity: 0;
-    }
-
-    .kanban-board__card-actions {
-      display: none;
-    }
-  }
-
-  &.gu-mirror.is-moving {
-    transform: rotate(5deg);
-  }
+.kanban-board__card-wrapper--drag .kanban-board__card {
+  transform: rotate(5deg);
 }
 
 .kanban-board__card {
