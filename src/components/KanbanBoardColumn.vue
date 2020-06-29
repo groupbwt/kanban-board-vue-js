@@ -20,6 +20,7 @@
         </ValidationProvider>
       </div>
       <div class="kanban-board__column-footer">
+        <!-- prettier-ignore -->
         <button
           class="kanban-board__save-button"
           @click="submitTitleForm"
@@ -40,10 +41,10 @@
 
       <ul class="kanban-board__cards-list">
         <KanbanBoardColumnCard
-          v-for="(title, index) in cards"
+          v-for="(cardTitle, index) in cards"
           :key="index"
-          :title="title"
-          @update-card="data => updateCard(index, data)"
+          :title="cardTitle"
+          @update-card="(data) => updateCard(index, data)"
           @delete-card="() => deleteCard(index)"
         />
       </ul>
@@ -69,6 +70,7 @@
 
       <div class="kanban-board__column-footer">
         <template v-if="showCardForm">
+          <!-- prettier-ignore -->
           <button
             class="kanban-board__save-button"
             @click="submitCardForm"
@@ -98,18 +100,18 @@ export default {
 
   components: {
     ValidationProvider,
-    KanbanBoardColumnCard
+    KanbanBoardColumnCard,
   },
 
   props: {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     cards: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
@@ -117,15 +119,15 @@ export default {
       showCardForm: false,
       formData: {
         columnTitle: '',
-        cardTitle: ''
-      }
+        cardTitle: '',
+      },
     };
   },
 
   computed: {
     showTitleForm() {
       return !this.title && !this.cards.length;
-    }
+    },
   },
 
   methods: {
@@ -188,7 +190,7 @@ export default {
 
     deleteColumn() {
       this.$emit('delete-column');
-    }
-  }
+    },
+  },
 };
 </script>

@@ -5,17 +5,17 @@ const translations = {
     addColumn: 'Добавить еще одну колонку',
     addCard: 'Добавить еще одну карточку',
     saveColumn: 'Добавить колонку',
-    saveCard: 'Добавить карточку'
+    saveCard: 'Добавить карточку',
   },
   fields: {
     title: "'Название колонки'",
-    card: "'Название карточки'"
+    card: "'Название карточки'",
   },
   placeholders: {
     title: 'Введите название колонки',
-    card: 'Введите название карточки'
+    card: 'Введите название карточки',
   },
-  validation: ru.messages
+  validation: ru.messages,
 };
 
 export default translations;

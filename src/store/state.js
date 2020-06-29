@@ -1,5 +1,5 @@
 let state = {
-  columns: []
+  columns: [],
 };
 
 export default state;

@@ -41,22 +41,22 @@ export default {
   name: 'KanbanBoardColumnCard',
 
   components: {
-    ValidationProvider
+    ValidationProvider,
   },
 
   props: {
     title: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
     return {
       editMode: false,
       formData: {
-        title: ''
-      }
+        title: '',
+      },
     };
   },
 
@@ -95,7 +95,7 @@ export default {
 
     deleteCard() {
       this.$emit('delete-card');
-    }
-  }
+    },
+  },
 };
 </script>

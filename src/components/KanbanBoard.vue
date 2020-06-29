@@ -5,7 +5,7 @@
       :key="index"
       :title="column.title"
       :cards="column.cards"
-      @update-column="data => updateColumn(index, data)"
+      @update-column="(data) => updateColumn(index, data)"
       @delete-column="() => deleteColumn(index)"
     />
 
@@ -27,13 +27,13 @@ export default {
   name: 'KanbanBoard',
 
   components: {
-    KanbanBoardColumn
+    KanbanBoardColumn,
   },
 
   computed: {
     columns() {
       return this.$store.state.columns;
-    }
+    },
   },
 
   methods: {
@@ -42,8 +42,8 @@ export default {
         ...this.columns,
         {
           title: '',
-          cards: []
-        }
+          cards: [],
+        },
       ];
       this.setColumns(columns);
     },
@@ -65,7 +65,7 @@ export default {
 
     setColumns(columns) {
       this.$store.dispatch('setColumns', { columns });
-    }
-  }
+    },
+  },
 };
 </script>
