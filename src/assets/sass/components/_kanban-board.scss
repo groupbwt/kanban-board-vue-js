@@ -186,9 +186,7 @@ body {
   }
 }
 
-.kanban-board__title-input,
-.kanban-board__card-input,
-.kanban-board__edit-input {
+.kanban-board__form-control {
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -220,12 +218,12 @@ body {
   }
 }
 
-.kanban-board__card-input {
+.kanban-board__form-control--card-input {
   min-height: 54px;
   resize: none;
 }
 
-.kanban-board__edit-input {
+.kanban-board__form-control--edit-input {
   position: relative;
   z-index: 1;
   width: calc(100% - 50px);

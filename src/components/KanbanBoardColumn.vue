@@ -13,7 +13,7 @@
             v-model="formData.columnTitle"
             type="text"
             :placeholder="$t('placeholders.title')"
-            :class="['kanban-board__title-input', { 'is-invalid': failed }]"
+            :class="['kanban-board__form-control', { 'is-invalid': failed }]"
             @keyup.enter="submitTitleForm"
           />
           <div class="invalid-feedback">{{ errors[0] }}</div>
@@ -66,7 +66,10 @@
             ref="cardField"
             v-model="formData.cardTitle"
             :placeholder="$t('placeholders.card')"
-            :class="['kanban-board__title-input', { 'is-invalid': failed }]"
+            :class="[
+              'kanban-board__form-control kanban-board__form-control--card-input',
+              { 'is-invalid': failed },
+            ]"
             @keyup.enter="submitCardForm"
           ></textarea>
           <div class="invalid-feedback">{{ errors[0] }}</div>

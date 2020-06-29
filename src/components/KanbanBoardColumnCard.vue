@@ -13,7 +13,11 @@
         v-model="formData.title"
         type="text"
         :placeholder="$t('placeholders.card')"
-        :class="['kanban-board__edit-input', { 'is-invalid': failed }]"
+        :class="[
+          'kanban-board__form-control',
+          'kanban-board__form-control--edit-input',
+          { 'is-invalid': failed },
+        ]"
         @keyup.enter="submitEditForm"
       />
       <div class="invalid-feedback">{{ errors[0] }}</div>
