@@ -39,12 +39,18 @@
 
       <Draggable
         v-model="columnItems"
-        class="kanban-board__cards-list"
+        :class="[
+          'kanban-board__cards-list',
+          { 'kanban-board__cards-list--empty': !columnItems.length },
+          { 'kanban-board__cards-list--dragging': isDragging },
+        ]"
         tag="ul"
         group="cards"
         ghost-class="kanban-board__card-wrapper--ghost"
         drag-class="kanban-board__card-wrapper--drag"
         filter=".kanban-board__card-wrapper--edit-mode"
+        @start="isDragging = true"
+        @end="isDragging = false"
       >
         <KanbanBoardColumnCard
           v-for="(cardTitle, index) in columnItems"
@@ -125,6 +131,7 @@ export default {
 
   data() {
     return {
+      isDragging: false,
       showCardForm: false,
       formData: {
         columnTitle: '',

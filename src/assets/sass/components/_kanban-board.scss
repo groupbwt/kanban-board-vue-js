@@ -61,14 +61,14 @@ body {
   padding: 0 15px 12px;
 }
 
-.kanban-board__cards-list:empty + .kanban-board__column-footer {
+.kanban-board__cards-list--empty + .kanban-board__column-footer {
   .kanban-board__add-button,
   .kanban-board__save-button {
     margin-top: 0;
   }
 }
 
-.kanban-board__cards-list:empty + .kanban-board__column-block {
+.kanban-board__cards-list--empty + .kanban-board__column-block {
   padding-top: 0;
 }
 
@@ -81,8 +81,15 @@ body {
     margin-bottom: 4px;
   }
 
-  &:hover:not(.kanban-board__card-wrapper--drag) .kanban-board__card {
+  &:hover .kanban-board__card {
     width: calc(100% - 50px);
+  }
+}
+
+.kanban-board__cards-list--dragging .kanban-board__card-wrapper:hover,
+.kanban-board__card-wrapper--drag:hover {
+  .kanban-board__card {
+    width: 100%;
   }
 }
 
