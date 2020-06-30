@@ -64,22 +64,11 @@ export default {
     },
 
     updateColumn(index, data) {
-      let newColumn = Object.assign({}, this.kanbanBoard[index], data);
-      let columns = this.kanbanBoard
-        .slice(0, index)
-        .concat([newColumn, ...this.kanbanBoard.slice(index + 1)]);
-      this.setColumns(columns);
+      this.$store.dispatch('updateColumn', { index, data });
     },
 
     deleteColumn(index) {
-      let columns = this.kanbanBoard
-        .slice(0, index)
-        .concat(this.kanbanBoard.slice(index + 1));
-      this.setColumns(columns);
-    },
-
-    setColumns(columns) {
-      this.$store.dispatch('setColumns', { columns });
+      this.$store.dispatch('deleteColumn', { index });
     },
   },
 };

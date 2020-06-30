@@ -1,6 +1,9 @@
 let actions = {
-  setColumns({ commit }, { columns }) {
-    commit('setColumns', columns);
+  updateColumn({ commit }, payload) {
+    commit('updateColumn', payload);
+  },
+  deleteColumn({ commit }, payload) {
+    commit('deleteColumn', payload);
   },
 };
 
