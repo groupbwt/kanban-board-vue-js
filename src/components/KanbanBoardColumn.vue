@@ -24,7 +24,7 @@
           {{ $t('buttons.saveColumn') }}
         </button>
         <div class="spacer"></div>
-        <button class="kanban-board__close-button" @click="deleteColumn">
+        <button class="kanban-board__close-button" @click="disableTitleForm">
           <img src="../assets/static/icons/cross.svg" alt />
         </button>
       </div>
@@ -155,6 +155,10 @@ export default {
   },
 
   methods: {
+    disableTitleForm() {
+      this.$emit('remove-column');
+    },
+
     enableCardForm() {
       this.showCardForm = true;
       this.$nextTick(() => {

@@ -6,6 +6,7 @@
       :title="column.title"
       :cards="column.cards"
       @update-column="(data) => updateColumn(index, data)"
+      @remove-column="() => removeColumn(index)"
       @delete-column="() => deleteColumn(index)"
     />
 
@@ -66,6 +67,12 @@ export default {
     updateColumn(index, data) {
       let newColumn = Object.assign({}, this.kanbanBoard[index], data);
       this.$store.dispatch('updateColumn', { index, newColumn });
+    },
+
+    removeColumn(index) {
+      this.kanbanBoard = this.kanbanBoard
+        .slice(0, index)
+        .concat(this.kanbanBoard.slice(index + 1));
     },
 
     deleteColumn(index) {
