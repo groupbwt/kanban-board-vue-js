@@ -1,6 +1,5 @@
 let mutations = {
-  updateColumn(state, { index, data }) {
-    let newColumn = Object.assign({}, state.columns[index], data);
+  updateColumn(state, { index, newColumn }) {
     state.columns = state.columns
       .slice(0, index)
       .concat([newColumn, ...state.columns.slice(index + 1)]);

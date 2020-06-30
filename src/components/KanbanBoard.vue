@@ -64,7 +64,8 @@ export default {
     },
 
     updateColumn(index, data) {
-      this.$store.dispatch('updateColumn', { index, data });
+      let newColumn = Object.assign({}, this.kanbanBoard[index], data);
+      this.$store.dispatch('updateColumn', { index, newColumn });
     },
 
     deleteColumn(index) {
