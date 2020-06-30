@@ -16,6 +16,10 @@ const translations = {
     card: 'Введите название карточки',
   },
   validation: ru.messages,
+  confirmation: {
+    column: 'Вы уверены что хотите удалить эту колонку?',
+    card: 'Вы уверены что хотите удалить эту карточку?',
+  },
 };
 
 export default translations;

@@ -213,7 +213,11 @@ export default {
     },
 
     deleteColumn() {
-      this.$emit('delete-column');
+      const confirmationResult = confirm(this.$t('confirmation.column'));
+
+      if (confirmationResult) {
+        this.$emit('delete-column');
+      }
     },
   },
 };

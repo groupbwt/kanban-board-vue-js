@@ -103,7 +103,11 @@ export default {
     },
 
     deleteCard() {
-      this.$emit('delete-card');
+      const confirmationResult = confirm(this.$t('confirmation.card'));
+
+      if (confirmationResult) {
+        this.$emit('delete-card');
+      }
     },
   },
 };
