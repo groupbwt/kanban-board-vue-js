@@ -171,7 +171,7 @@ export default {
 
   methods: {
     disableTitleForm() {
-      this.$emit('remove-column');
+      this.$emit('delete-column');
     },
 
     enableCardForm() {
@@ -191,7 +191,7 @@ export default {
 
       if (validationResult.valid) {
         let title = this.formData.columnTitle;
-        this.$emit('update-column', { title });
+        this.$emit('store-column', { title });
         this.resetTitleForm();
       }
     },
@@ -235,7 +235,7 @@ export default {
       const confirmationResult = confirm(this.$t('confirmation.column'));
 
       if (confirmationResult) {
-        this.$emit('delete-column');
+        this.$emit('delete-column', true);
       }
     },
   },

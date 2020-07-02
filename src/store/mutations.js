@@ -1,4 +1,7 @@
 let mutations = {
+  storeColumn(state, { index, newColumn }) {
+    state.columns.splice(index, 0, newColumn);
+  },
   updateColumn(state, { index, newColumn }) {
     state.columns = state.columns
       .slice(0, index)

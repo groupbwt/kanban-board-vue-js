@@ -5,9 +5,9 @@
       :key="index"
       :title="column.title"
       :cards="column.cards"
+      @store-column="(data) => storeColumn(index, data)"
       @update-column="(data) => updateColumn(index, data)"
-      @remove-column="() => removeColumn(index)"
-      @delete-column="() => deleteColumn(index)"
+      @delete-column="(save) => deleteColumn(index, save)"
     />
 
     <li class="kanban-board__column">
@@ -47,12 +47,6 @@ export default {
     },
   },
 
-  watch: {
-    columns() {
-      this.kanbanBoard = this.columns;
-    },
-  },
-
   created() {
     this.kanbanBoard = this.columns;
   },
@@ -68,19 +62,36 @@ export default {
       ];
     },
 
+    storeColumn(index, data) {
+      let newColumn = Object.assign({}, this.kanbanBoard[index], data);
+      this.$store.dispatch('storeColumn', { index, newColumn });
+      this.updateKanbanBoard(index, newColumn);
+    },
+
     updateColumn(index, data) {
       let newColumn = Object.assign({}, this.kanbanBoard[index], data);
       this.$store.dispatch('updateColumn', { index, newColumn });
+      this.updateKanbanBoard(index, newColumn);
     },
 
-    removeColumn(index) {
-      this.kanbanBoard = this.kanbanBoard
-        .slice(0, index)
-        .concat(this.kanbanBoard.slice(index + 1));
+    deleteColumn(index, save = false) {
+      if (save) {
+        this.$store.dispatch('deleteColumn', { index });
+      }
+
+      this.updateKanbanBoard(index);
     },
 
-    deleteColumn(index) {
-      this.$store.dispatch('deleteColumn', { index });
+    updateKanbanBoard(index, newColumn = null) {
+      if (!newColumn) {
+        this.kanbanBoard = this.kanbanBoard
+          .slice(0, index)
+          .concat(this.kanbanBoard.slice(index + 1));
+      } else {
+        this.kanbanBoard = this.kanbanBoard
+          .slice(0, index)
+          .concat([newColumn, ...this.kanbanBoard.slice(index + 1)]);
+      }
     },
   },
 };
