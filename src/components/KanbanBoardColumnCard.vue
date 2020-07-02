@@ -29,10 +29,10 @@
 
     <div class="kanban-board__card-actions">
       <button class="kanban-board__icon-button" @click="toggleEditForm">
-        <img src="../assets/static/icons/pencil.svg" alt />
+        <img src="../assets/static/icons/pencil.svg" alt="edit icon" />
       </button>
       <button class="kanban-board__icon-button" @click="deleteCard">
-        <img src="../assets/static/icons/delete.svg" alt />
+        <img src="../assets/static/icons/delete.svg" alt="trash icon" />
       </button>
     </div>
   </li>

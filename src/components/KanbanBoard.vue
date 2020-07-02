@@ -13,7 +13,7 @@
     <li class="kanban-board__column">
       <div class="kanban-board__column-footer">
         <button class="kanban-board__add-button" @click="addColumn">
-          <img src="../assets/static/icons/plus.svg" alt />
+          <img src="../assets/static/icons/plus.svg" alt="plus icon" />
           {{ $t('buttons.addColumn') }}
         </button>
       </div>

@@ -26,7 +26,7 @@
         </button>
         <div class="spacer"></div>
         <button class="kanban-board__close-button" @click="disableTitleForm">
-          <img src="../assets/static/icons/cross.svg" alt />
+          <img src="../assets/static/icons/cross.svg" alt="cross icon" />
         </button>
       </div>
     </template>
@@ -34,7 +34,7 @@
       <div class="kanban-board__column-header">
         <h4>{{ title }}</h4>
         <button class="kanban-board__icon-button" @click="deleteColumn">
-          <img src="../assets/static/icons/delete.svg" alt />
+          <img src="../assets/static/icons/delete.svg" alt="trash icon" />
         </button>
       </div>
 
@@ -92,12 +92,12 @@
           </button>
           <div class="spacer"></div>
           <button class="kanban-board__close-button" @click="disableCardForm">
-            <img src="../assets/static/icons/cross.svg" alt />
+            <img src="../assets/static/icons/cross.svg" alt="cross icon" />
           </button>
         </template>
         <template v-else>
           <button class="kanban-board__add-button" @click="enableCardForm">
-            <img src="../assets/static/icons/plus.svg" alt />
+            <img src="../assets/static/icons/plus.svg" alt="plus icon" />
             {{ $t('buttons.addCard') }}
           </button>
         </template>
