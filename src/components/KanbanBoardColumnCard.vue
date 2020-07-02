@@ -1,10 +1,5 @@
 <template>
-  <li
-    :class="[
-      'kanban-board__card-wrapper',
-      { 'kanban-board__card-wrapper--edit-mode': editMode },
-    ]"
-  >
+  <li class="kanban-board__card-wrapper">
     <ValidationProvider
       v-if="editMode"
       ref="editForm"

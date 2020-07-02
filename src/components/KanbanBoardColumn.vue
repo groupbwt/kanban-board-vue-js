@@ -49,7 +49,8 @@
         group="cards"
         ghost-class="kanban-board__card-wrapper--ghost"
         drag-class="kanban-board__card-wrapper--drag"
-        filter=".kanban-board__card-wrapper--edit-mode"
+        :filter="filterSelectors"
+        :prevent-on-filter="false"
         @start="isDragging = true"
         @end="isDragging = false"
       >
@@ -138,6 +139,8 @@ export default {
         columnTitle: '',
         cardTitle: '',
       },
+      filterSelectors:
+        '.kanban-board__form-control--edit-input, .kanban-board__card-actions',
     };
   },
 
