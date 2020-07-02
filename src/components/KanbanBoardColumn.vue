@@ -10,6 +10,7 @@
           rules="required"
         >
           <input
+            ref="titleField"
             v-model="formData.columnTitle"
             type="text"
             :placeholder="$t('placeholders.title')"
@@ -152,6 +153,13 @@ export default {
     showTitleForm() {
       return !this.title && !this.columnItems.length;
     },
+  },
+
+  mounted() {
+    // set focus on the new column input field
+    if (this.showTitleForm) {
+      this.$refs.titleField.focus();
+    }
   },
 
   methods: {
