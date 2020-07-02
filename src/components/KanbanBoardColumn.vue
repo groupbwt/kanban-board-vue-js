@@ -107,21 +107,25 @@
         </template>
       </div>
     </template>
+
+    <ModalWindow ref="confirmModal" :text="$t('confirmation.column')" />
   </li>
 </template>
 
 <script>
+import Draggable from 'vuedraggable';
 import { ValidationProvider } from 'vee-validate';
 import KanbanBoardColumnCard from './KanbanBoardColumnCard.vue';
-import Draggable from 'vuedraggable';
+import ModalWindow from './ModalWindow.vue';
 
 export default {
   name: 'KanbanBoardColumn',
 
   components: {
+    Draggable,
     ValidationProvider,
     KanbanBoardColumnCard,
-    Draggable,
+    ModalWindow,
   },
 
   props: {
@@ -232,11 +236,9 @@ export default {
     },
 
     deleteColumn() {
-      const confirmationResult = confirm(this.$t('confirmation.column'));
-
-      if (confirmationResult) {
+      this.$refs.confirmModal.open({}, () => {
         this.$emit('delete-column', true);
-      }
+      });
     },
   },
 };

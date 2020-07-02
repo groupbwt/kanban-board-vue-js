@@ -37,17 +37,21 @@
         </button>
       </div>
     </div>
+
+    <ModalWindow ref="confirmModal" :text="$t('confirmation.card')" />
   </li>
 </template>
 
 <script>
 import { ValidationProvider } from 'vee-validate';
+import ModalWindow from './ModalWindow.vue';
 
 export default {
   name: 'KanbanBoardColumnCard',
 
   components: {
     ValidationProvider,
+    ModalWindow,
   },
 
   props: {
@@ -100,11 +104,9 @@ export default {
     },
 
     deleteCard() {
-      const confirmationResult = confirm(this.$t('confirmation.card'));
-
-      if (confirmationResult) {
+      this.$refs.confirmModal.open({}, () => {
         this.$emit('delete-card');
-      }
+      });
     },
   },
 };
