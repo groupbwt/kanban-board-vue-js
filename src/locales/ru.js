@@ -2,7 +2,9 @@ import ru from 'vee-validate/dist/locale/ru.json';
 
 const translations = {
   buttons: {
+    addFirstColumn: 'Добавить колонку',
     addColumn: 'Добавить еще одну колонку',
+    addFirstCard: 'Добавить карточку',
     addCard: 'Добавить еще одну карточку',
     saveColumn: 'Добавить колонку',
     saveCard: 'Добавить карточку',

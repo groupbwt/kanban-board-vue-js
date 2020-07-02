@@ -14,7 +14,11 @@
       <div class="kanban-board__column-footer">
         <button class="kanban-board__add-button" @click="addColumn">
           <img src="../assets/static/icons/plus.svg" alt="plus icon" />
-          {{ $t('buttons.addColumn') }}
+          {{
+            kanbanBoard.length
+              ? $t('buttons.addColumn')
+              : $t('buttons.addFirstColumn')
+          }}
         </button>
       </div>
     </li>

@@ -98,7 +98,11 @@
         <template v-else>
           <button class="kanban-board__add-button" @click="enableCardForm">
             <img src="../assets/static/icons/plus.svg" alt="plus icon" />
-            {{ $t('buttons.addCard') }}
+            {{
+              columnItems.length
+                ? $t('buttons.addCard')
+                : $t('buttons.addFirstCard')
+            }}
           </button>
         </template>
       </div>
