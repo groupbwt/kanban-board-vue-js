@@ -1,39 +1,41 @@
 <template>
   <li class="kanban-board__card-wrapper">
-    <ValidationProvider
-      v-if="editMode"
-      ref="editForm"
-      v-slot="{ errors, failed }"
-      name="card"
-      mode="passive"
-      rules="required"
-    >
-      <input
-        ref="editField"
-        v-model="formData.title"
-        type="text"
-        :placeholder="$t('placeholders.card')"
-        :class="[
-          'kanban-board__form-control',
-          'kanban-board__form-control--edit-input',
-          { 'is-invalid': failed },
-        ]"
-        @keyup.enter="submitEditForm"
-      />
-      <div class="invalid-feedback">{{ errors[0] }}</div>
-    </ValidationProvider>
+    <div class="kanban-board__card">
+      <ValidationProvider
+        v-if="editMode"
+        ref="editForm"
+        v-slot="{ errors, failed }"
+        name="card"
+        mode="passive"
+        rules="required"
+      >
+        <input
+          ref="editField"
+          v-model="formData.title"
+          type="text"
+          :placeholder="$t('placeholders.card')"
+          :class="[
+            'kanban-board__form-control',
+            'kanban-board__form-control--edit-input',
+            { 'is-invalid': failed },
+          ]"
+          @keyup.enter="submitEditForm"
+        />
+        <div class="invalid-feedback">{{ errors[0] }}</div>
+      </ValidationProvider>
 
-    <div v-else class="kanban-board__card">
-      <p>{{ title }}</p>
-    </div>
+      <div v-else class="kanban-board__card-content">
+        <p>{{ title }}</p>
+      </div>
 
-    <div class="kanban-board__card-actions">
-      <button class="kanban-board__icon-button" @click="toggleEditForm">
-        <img src="../assets/static/icons/pencil.svg" alt="edit icon" />
-      </button>
-      <button class="kanban-board__icon-button" @click="deleteCard">
-        <img src="../assets/static/icons/delete.svg" alt="trash icon" />
-      </button>
+      <div class="kanban-board__card-actions">
+        <button class="kanban-board__icon-button" @click="toggleEditForm">
+          <img src="../assets/static/icons/pencil.svg" alt="edit icon" />
+        </button>
+        <button class="kanban-board__icon-button" @click="deleteCard">
+          <img src="../assets/static/icons/delete.svg" alt="trash icon" />
+        </button>
+      </div>
     </div>
   </li>
 </template>

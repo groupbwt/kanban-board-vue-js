@@ -33,8 +33,9 @@ body {
 
 .kanban-board__column-header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 12px 15px 6px;
+  padding: 12px 20px 6px 15px;
   font-weight: bold;
 }
 
@@ -80,17 +81,6 @@ body {
   &:last-child {
     margin-bottom: 4px;
   }
-
-  &:hover .kanban-board__card {
-    width: calc(100% - 50px);
-  }
-}
-
-.kanban-board__cards-list--dragging .kanban-board__card-wrapper:hover,
-.kanban-board__card-wrapper--drag:hover {
-  .kanban-board__card {
-    width: 100%;
-  }
 }
 
 .kanban-board__card-wrapper--ghost {
@@ -99,24 +89,19 @@ body {
   .kanban-board__card {
     opacity: 0;
   }
-
-  .kanban-board__card-actions {
-    display: none;
-  }
 }
 
 .kanban-board__card-wrapper--drag .kanban-board__card {
   transform: rotate(5deg);
 }
 
-.kanban-board__card {
+.kanban-board__card-content {
   position: relative;
-  z-index: 1;
   box-sizing: border-box;
   width: 100%;
   max-width: 242px;
   min-height: 37px;
-  padding: 10px;
+  padding: 10px 55px 10px 10px;
   line-height: 1.1;
   background: #ffffff;
   border-radius: 3px;
@@ -130,8 +115,8 @@ body {
 
 .kanban-board__card-actions {
   position: absolute;
-  top: calc(50% - 9px);
-  right: 0;
+  top: 9px;
+  right: 5px;
   height: 18px;
 }
 
@@ -238,7 +223,7 @@ body {
 .kanban-board__form-control--edit-input {
   position: relative;
   z-index: 1;
-  width: calc(100% - 50px);
+  width: calc(100% - 55px);
 }
 
 .invalid-feedback {
