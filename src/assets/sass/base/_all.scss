@@ -10,3 +10,13 @@ body {
 .spacer {
   flex-grow: 1 !important;
 }
+
+.active-element {
+  &:focus,
+  &:active {
+    outline-width: 5px;
+    outline-style: auto;
+    outline-color: #80bdff;
+    outline-offset: -2px;
+  }
+}
