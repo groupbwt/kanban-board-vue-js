@@ -1,56 +1,57 @@
 <template>
-  <li
-    :class="[
-      'kanban-board__card-wrapper',
-      { 'kanban-board__card-wrapper--edit-mode': editMode },
-    ]"
-  >
-    <ValidationProvider
-      v-if="editMode"
-      ref="editForm"
-      v-slot="{ errors, failed }"
-      name="card"
-      mode="passive"
-      rules="required"
-    >
-      <input
-        ref="editField"
-        v-model="formData.title"
-        type="text"
-        :placeholder="$t('placeholders.card')"
-        :class="[
-          'kanban-board__form-control',
-          'kanban-board__form-control--edit-input',
-          { 'is-invalid': failed },
-        ]"
-        @keyup.enter="submitEditForm"
-      />
-      <div class="invalid-feedback">{{ errors[0] }}</div>
-    </ValidationProvider>
+  <li class="kanban-board__card-wrapper">
+    <div class="kanban-board__card">
+      <ValidationProvider
+        v-if="editMode"
+        ref="editForm"
+        v-slot="{ errors, failed }"
+        name="card"
+        mode="passive"
+        rules="required"
+      >
+        <input
+          ref="editField"
+          v-model="formData.title"
+          type="text"
+          :placeholder="$t('placeholders.card')"
+          :class="[
+            'kanban-board__form-control',
+            'kanban-board__form-control--edit-input',
+            { 'is-invalid': failed },
+          ]"
+          @keyup.enter="submitEditForm"
+        />
+        <div class="invalid-feedback">{{ errors[0] }}</div>
+      </ValidationProvider>
 
-    <div v-else class="kanban-board__card">
-      <p>{{ title }}</p>
+      <div v-else class="kanban-board__card-content">
+        <p>{{ title }}</p>
+      </div>
+
+      <div class="kanban-board__card-actions">
+        <button class="kanban-board__icon-button" @click="toggleEditForm">
+          <img src="../assets/static/icons/pencil.svg" alt="edit icon" />
+        </button>
+        <button class="kanban-board__icon-button" @click="deleteCard">
+          <img src="../assets/static/icons/delete.svg" alt="trash icon" />
+        </button>
+      </div>
     </div>
 
-    <div class="kanban-board__card-actions">
-      <button class="kanban-board__icon-button" @click="toggleEditForm">
-        <img src="../assets/static/icons/pencil.svg" alt />
-      </button>
-      <button class="kanban-board__icon-button" @click="deleteCard">
-        <img src="../assets/static/icons/delete.svg" alt />
-      </button>
-    </div>
+    <ModalWindow ref="confirmModal" :text="$t('confirmation.card')" />
   </li>
 </template>
 
 <script>
 import { ValidationProvider } from 'vee-validate';
+import ModalWindow from './ModalWindow.vue';
 
 export default {
   name: 'KanbanBoardColumnCard',
 
   components: {
     ValidationProvider,
+    ModalWindow,
   },
 
   props: {
@@ -103,11 +104,9 @@ export default {
     },
 
     deleteCard() {
-      const confirmationResult = confirm(this.$t('confirmation.card'));
-
-      if (confirmationResult) {
+      this.$refs.confirmModal.open({}, () => {
         this.$emit('delete-card');
-      }
+      });
     },
   },
 };

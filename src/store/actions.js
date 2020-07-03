@@ -1,4 +1,7 @@
 let actions = {
+  storeColumn({ commit }, payload) {
+    commit('storeColumn', payload);
+  },
   updateColumn({ commit }, payload) {
     commit('updateColumn', payload);
   },

@@ -10,6 +10,7 @@
           rules="required"
         >
           <input
+            ref="titleField"
             v-model="formData.columnTitle"
             type="text"
             :placeholder="$t('placeholders.title')"
@@ -25,7 +26,7 @@
         </button>
         <div class="spacer"></div>
         <button class="kanban-board__close-button" @click="disableTitleForm">
-          <img src="../assets/static/icons/cross.svg" alt />
+          <img src="../assets/static/icons/cross.svg" alt="cross icon" />
         </button>
       </div>
     </template>
@@ -33,7 +34,7 @@
       <div class="kanban-board__column-header">
         <h4>{{ title }}</h4>
         <button class="kanban-board__icon-button" @click="deleteColumn">
-          <img src="../assets/static/icons/delete.svg" alt />
+          <img src="../assets/static/icons/delete.svg" alt="trash icon" />
         </button>
       </div>
 
@@ -48,7 +49,8 @@
         group="cards"
         ghost-class="kanban-board__card-wrapper--ghost"
         drag-class="kanban-board__card-wrapper--drag"
-        filter=".kanban-board__card-wrapper--edit-mode"
+        :filter="filterSelectors"
+        :prevent-on-filter="false"
         @start="isDragging = true"
         @end="isDragging = false"
       >
@@ -90,32 +92,40 @@
           </button>
           <div class="spacer"></div>
           <button class="kanban-board__close-button" @click="disableCardForm">
-            <img src="../assets/static/icons/cross.svg" alt />
+            <img src="../assets/static/icons/cross.svg" alt="cross icon" />
           </button>
         </template>
         <template v-else>
           <button class="kanban-board__add-button" @click="enableCardForm">
-            <img src="../assets/static/icons/plus.svg" alt />
-            {{ $t('buttons.addCard') }}
+            <img src="../assets/static/icons/plus.svg" alt="plus icon" />
+            {{
+              columnItems.length
+                ? $t('buttons.addCard')
+                : $t('buttons.addFirstCard')
+            }}
           </button>
         </template>
       </div>
     </template>
+
+    <ModalWindow ref="confirmModal" :text="$t('confirmation.column')" />
   </li>
 </template>
 
 <script>
+import Draggable from 'vuedraggable';
 import { ValidationProvider } from 'vee-validate';
 import KanbanBoardColumnCard from './KanbanBoardColumnCard.vue';
-import Draggable from 'vuedraggable';
+import ModalWindow from './ModalWindow.vue';
 
 export default {
   name: 'KanbanBoardColumn',
 
   components: {
+    Draggable,
     ValidationProvider,
     KanbanBoardColumnCard,
-    Draggable,
+    ModalWindow,
   },
 
   props: {
@@ -137,6 +147,8 @@ export default {
         columnTitle: '',
         cardTitle: '',
       },
+      filterSelectors:
+        '.kanban-board__form-control--edit-input, .kanban-board__card-actions',
     };
   },
 
@@ -154,9 +166,16 @@ export default {
     },
   },
 
+  mounted() {
+    // set focus on the new column input field
+    if (this.showTitleForm) {
+      this.$refs.titleField.focus();
+    }
+  },
+
   methods: {
     disableTitleForm() {
-      this.$emit('remove-column');
+      this.$emit('delete-column');
     },
 
     enableCardForm() {
@@ -176,7 +195,7 @@ export default {
 
       if (validationResult.valid) {
         let title = this.formData.columnTitle;
-        this.$emit('update-column', { title });
+        this.$emit('store-column', { title });
         this.resetTitleForm();
       }
     },
@@ -217,11 +236,9 @@ export default {
     },
 
     deleteColumn() {
-      const confirmationResult = confirm(this.$t('confirmation.column'));
-
-      if (confirmationResult) {
-        this.$emit('delete-column');
-      }
+      this.$refs.confirmModal.open({}, () => {
+        this.$emit('delete-column', true);
+      });
     },
   },
 };

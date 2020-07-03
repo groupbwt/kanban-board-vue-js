@@ -2,7 +2,9 @@ import en from 'vee-validate/dist/locale/en.json';
 
 const translations = {
   buttons: {
+    addFirstColumn: 'Add your first column',
     addColumn: 'Add another column',
+    addFirstCard: 'Add your first card',
     addCard: 'Add another card',
     saveColumn: 'Add column',
     saveCard: 'Add card',

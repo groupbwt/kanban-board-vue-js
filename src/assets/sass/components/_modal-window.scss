@@ -1,0 +1,149 @@
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  overflow: hidden;
+  outline: 0;
+  transform: scale(0);
+  visibility: hidden;
+}
+
+.modal--opened {
+  padding-right: 17px;
+  transform: scale(1);
+  visibility: visible;
+}
+
+.modal__backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0;
+}
+
+.modal--opened .modal__backdrop {
+  opacity: 0.5;
+}
+
+.modal__dialog {
+  position: relative;
+  width: auto;
+  margin: 0.5rem;
+  transform: translate(0, -25%);
+  transition: transform 0.3s ease-out;
+  pointer-events: none;
+}
+
+.modal__dialog--centered {
+  display: flex;
+  align-items: center;
+  min-height: calc(100% - (0.5rem * 2));
+}
+
+.modal--opened .modal__dialog {
+  transform: translate(0, 0);
+}
+
+.modal__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  outline: 0;
+  pointer-events: auto;
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #e9ecef;
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
+}
+
+.modal__title {
+  margin-bottom: 0;
+  font-size: 1.25rem;
+}
+
+.modal__close-button {
+  display: flex;
+  padding: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.4s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.modal__body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 1.5rem;
+}
+
+.modal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.modal__footer-button {
+  display: inline-block;
+  padding: 10px;
+  font-weight: bold;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    opacity 0.4s;
+
+  &:not(:last-child) {
+    margin-right: 0.75rem;
+  }
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.modal__footer-button--secondary {
+  color: #fff;
+  background-color: #6c757d;
+}
+
+.modal__footer-button--primary {
+  color: #fff;
+  background-color: #39c071;
+}
+
+@media (min-width: 576px) {
+  .modal__dialog {
+    max-width: 500px;
+    margin: 1.75rem auto;
+  }
+  .modal__dialog--centered {
+    min-height: calc(100% - (1.75rem * 2));
+  }
+}
