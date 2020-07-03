@@ -118,8 +118,8 @@
 .kanban-board__add-button {
   display: flex;
   width: 100%;
-  margin-top: 12px;
-  padding: 0;
+  margin: 7px 0 -5px;
+  padding: 5px 0;
   color: #6b808c;
   background: transparent;
   border: none;
@@ -131,14 +131,8 @@
     margin-right: 10px;
   }
 
-  &:hover,
-  &:focus,
-  &:active {
+  &:hover {
     opacity: 1;
-  }
-
-  &:focus {
-    outline: none;
   }
 }
 
