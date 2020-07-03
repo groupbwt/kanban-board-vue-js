@@ -15,7 +15,7 @@
             type="text"
             :placeholder="$t('placeholders.title')"
             :class="['kanban-board__form-control', { 'is-invalid': failed }]"
-            @keyup.enter="submitTitleForm"
+            @keydown.enter.prevent="submitTitleForm"
           />
           <div class="invalid-feedback">{{ errors[0] }}</div>
         </ValidationProvider>
@@ -79,7 +79,7 @@
               'kanban-board__form-control kanban-board__form-control--card-input',
               { 'is-invalid': failed },
             ]"
-            @keyup.enter="submitCardForm"
+            @keydown.enter.prevent="submitCardForm"
           ></textarea>
           <div class="invalid-feedback">{{ errors[0] }}</div>
         </ValidationProvider>
@@ -148,7 +148,7 @@ export default {
         cardTitle: '',
       },
       filterSelectors:
-        '.kanban-board__form-control--edit-input, .kanban-board__card-actions',
+        '.kanban-board__form-control--edit-input, .kanban-board__card-actions, .modal',
     };
   },
 

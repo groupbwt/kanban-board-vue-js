@@ -19,7 +19,7 @@
             'kanban-board__form-control--edit-input',
             { 'is-invalid': failed },
           ]"
-          @keyup.enter="submitEditForm"
+          @keydown.enter.prevent="submitEditForm"
         />
         <div class="invalid-feedback">{{ errors[0] }}</div>
       </ValidationProvider>
