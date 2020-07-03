@@ -1,4 +1,4 @@
-# kanban-board-reactjs
+# kanban-board-vue-js
 
 The project is a simplified copy of the Trello. <br />
 Project demo is available at: https://groupbwt.github.io/kanban-board-vue-js/ <br />
