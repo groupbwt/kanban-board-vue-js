@@ -15,17 +15,23 @@
             type="text"
             :placeholder="$t('placeholders.title')"
             :class="['kanban-board__form-control', { 'is-invalid': failed }]"
-            @keyup.enter="submitTitleForm"
+            @keydown.enter.prevent="submitTitleForm"
           />
           <div class="invalid-feedback">{{ errors[0] }}</div>
         </ValidationProvider>
       </div>
       <div class="kanban-board__column-footer">
-        <button class="kanban-board__save-button" @click="submitTitleForm">
+        <button
+          class="kanban-board__save-button active-element"
+          @click="submitTitleForm"
+        >
           {{ $t('buttons.saveColumn') }}
         </button>
         <div class="spacer"></div>
-        <button class="kanban-board__close-button" @click="disableTitleForm">
+        <button
+          class="kanban-board__close-button active-element"
+          @click="disableTitleForm"
+        >
           <img src="../assets/static/icons/cross.svg" alt="cross icon" />
         </button>
       </div>
@@ -33,7 +39,10 @@
     <template v-else>
       <div class="kanban-board__column-header">
         <h4>{{ title }}</h4>
-        <button class="kanban-board__icon-button" @click="deleteColumn">
+        <button
+          class="kanban-board__icon-button active-element"
+          @click="deleteColumn"
+        >
           <img src="../assets/static/icons/delete.svg" alt="trash icon" />
         </button>
       </div>
@@ -79,7 +88,7 @@
               'kanban-board__form-control kanban-board__form-control--card-input',
               { 'is-invalid': failed },
             ]"
-            @keyup.enter="submitCardForm"
+            @keydown.enter.prevent="submitCardForm"
           ></textarea>
           <div class="invalid-feedback">{{ errors[0] }}</div>
         </ValidationProvider>
@@ -87,16 +96,25 @@
 
       <div class="kanban-board__column-footer">
         <template v-if="showCardForm">
-          <button class="kanban-board__save-button" @click="submitCardForm">
+          <button
+            class="kanban-board__save-button active-element"
+            @click="submitCardForm"
+          >
             {{ $t('buttons.saveCard') }}
           </button>
           <div class="spacer"></div>
-          <button class="kanban-board__close-button" @click="disableCardForm">
+          <button
+            class="kanban-board__close-button active-element"
+            @click="disableCardForm"
+          >
             <img src="../assets/static/icons/cross.svg" alt="cross icon" />
           </button>
         </template>
         <template v-else>
-          <button class="kanban-board__add-button" @click="enableCardForm">
+          <button
+            class="kanban-board__add-button active-element"
+            @click="enableCardForm"
+          >
             <img src="../assets/static/icons/plus.svg" alt="plus icon" />
             {{
               columnItems.length
@@ -148,7 +166,7 @@ export default {
         cardTitle: '',
       },
       filterSelectors:
-        '.kanban-board__form-control--edit-input, .kanban-board__card-actions',
+        '.kanban-board__form-control--edit-input, .kanban-board__card-actions, .modal',
     };
   },
 

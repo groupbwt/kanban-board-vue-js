@@ -10,7 +10,7 @@
       <div class="modal__content">
         <div v-if="title" class="modal__header">
           <h5 class="modal__title">{{ title }}</h5>
-          <button class="modal__close-button" @click="onCancel">
+          <button class="modal__close-button active-element" @click="onCancel">
             <img src="../assets/static/icons/cross.svg" alt="cross icon" />
           </button>
         </div>
@@ -20,14 +20,14 @@
         <div class="modal__footer">
           <button
             type="button"
-            class="modal__footer-button modal__footer-button--secondary"
+            class="modal__footer-button modal__footer-button--secondary active-element"
             @click="onCancel"
           >
             Cancel
           </button>
           <button
             type="button"
-            class="modal__footer-button modal__footer-button--primary"
+            class="modal__footer-button modal__footer-button--primary active-element"
             @click="onConfirm"
           >
             Confirm

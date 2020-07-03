@@ -19,7 +19,7 @@
             'kanban-board__form-control--edit-input',
             { 'is-invalid': failed },
           ]"
-          @keyup.enter="submitEditForm"
+          @keydown.enter.prevent="submitEditForm"
         />
         <div class="invalid-feedback">{{ errors[0] }}</div>
       </ValidationProvider>
@@ -29,10 +29,16 @@
       </div>
 
       <div class="kanban-board__card-actions">
-        <button class="kanban-board__icon-button" @click="toggleEditForm">
+        <button
+          class="kanban-board__icon-button active-element"
+          @click="toggleEditForm"
+        >
           <img src="../assets/static/icons/pencil.svg" alt="edit icon" />
         </button>
-        <button class="kanban-board__icon-button" @click="deleteCard">
+        <button
+          class="kanban-board__icon-button active-element"
+          @click="deleteCard"
+        >
           <img src="../assets/static/icons/delete.svg" alt="trash icon" />
         </button>
       </div>

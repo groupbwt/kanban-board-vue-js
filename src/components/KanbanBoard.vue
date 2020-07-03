@@ -12,7 +12,10 @@
 
     <li class="kanban-board__column">
       <div class="kanban-board__column-footer">
-        <button class="kanban-board__add-button" @click="addColumn">
+        <button
+          class="kanban-board__add-button active-element"
+          @click="addColumn"
+        >
           <img src="../assets/static/icons/plus.svg" alt="plus icon" />
           {{
             kanbanBoard.length

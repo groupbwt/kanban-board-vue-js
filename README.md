@@ -7,7 +7,7 @@ This design was used for implementing UI: https://www.figma.com/file/odIzynKOUdB
 ## Technologies
 
 This project was created to demonstrate the main capabilities of Vue.js and follows the [official styleguides & best practices](https://vuejs.org/v2/style-guide/index.html). <br />
-SSCSS is used for managing styles. <br />
+SCSS is used for managing styles. <br />
 For better App performance the memorization is used. <br />
 
 To implement the main functional, such external dependencies were used:
