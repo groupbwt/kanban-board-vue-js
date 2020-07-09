@@ -6,7 +6,6 @@
           ref="titleForm"
           v-slot="{ errors, failed }"
           name="title"
-          mode="passive"
           rules="required|uniqueColumnName"
         >
           <input
@@ -78,7 +77,6 @@
           ref="cardForm"
           v-slot="{ errors, failed }"
           name="card"
-          mode="passive"
           rules="required"
         >
           <textarea

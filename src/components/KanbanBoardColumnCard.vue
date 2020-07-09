@@ -6,7 +6,6 @@
         ref="editForm"
         v-slot="{ errors, failed }"
         name="card"
-        mode="passive"
         rules="required"
       >
         <input
