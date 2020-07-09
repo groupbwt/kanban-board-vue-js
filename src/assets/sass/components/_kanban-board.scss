@@ -30,6 +30,11 @@
   font-weight: bold;
 }
 
+.kanban-board__column-title {
+  max-height: 196px;
+  overflow: hidden;
+}
+
 .kanban-board__cards-list {
   padding: 8px 15px 0;
   overflow-y: auto;
