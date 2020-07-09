@@ -38,7 +38,7 @@
     </template>
     <template v-else>
       <div class="kanban-board__column-header">
-        <h4 class="kanban-board__column-title">{{ title }}</h4>
+        <h4>{{ title }}</h4>
         <button
           class="kanban-board__icon-button active-element"
           @click="deleteColumn"

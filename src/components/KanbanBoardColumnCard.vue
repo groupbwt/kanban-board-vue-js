@@ -25,7 +25,7 @@
       </ValidationProvider>
 
       <div v-else class="kanban-board__card-content">
-        <p>{{ title }}</p>
+        <ClippedText :value="title" />
       </div>
 
       <div class="kanban-board__card-actions">
@@ -51,6 +51,7 @@
 <script>
 import { ValidationProvider } from 'vee-validate';
 import ModalWindow from './ModalWindow.vue';
+import ClippedText from './ClippedText.vue';
 
 export default {
   name: 'KanbanBoardColumnCard',
@@ -58,6 +59,7 @@ export default {
   components: {
     ValidationProvider,
     ModalWindow,
+    ClippedText,
   },
 
   props: {
