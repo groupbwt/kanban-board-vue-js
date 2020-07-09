@@ -100,7 +100,8 @@ export default {
       const validationResult = await this.$refs.editForm.validate();
 
       if (validationResult.valid) {
-        this.$emit('update-card', this.formData.title);
+        let title = this.formData.title;
+        this.$emit('update-card', { title });
         this.editMode = false;
         this.resetForm();
       }

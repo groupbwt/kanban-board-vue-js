@@ -60,6 +60,7 @@
         drag-class="kanban-board__card-wrapper--drag"
         :filter="filterSelectors"
         :prevent-on-filter="false"
+        :invert-swap="true"
         @start="isDragging = true"
         @end="isDragging = false"
       >
@@ -67,8 +68,8 @@
           v-for="card in columnItems"
           :key="card.id"
           :title="card.title"
-          @update-card="(data) => updateCard(index, data)"
-          @delete-card="() => deleteCard(index)"
+          @update-card="(data) => updateCard(card.id, data)"
+          @delete-card="() => deleteCard(card.id)"
         />
       </Draggable>
 
@@ -225,7 +226,7 @@ export default {
 
       if (validationResult.valid) {
         let title = this.formData.columnTitle;
-        this.$emit('store-column', { id: Date.now(), title });
+        this.$emit('store-column', { title });
         this.resetTitleForm();
       }
     },
@@ -244,17 +245,21 @@ export default {
       }
     },
 
-    updateCard(index, data) {
+    updateCard(id, data) {
+      let index = this.columnItems.findIndex((card) => card.id === id);
       let cards = this.columnItems
         .slice(0, index)
         .concat([data, ...this.columnItems.slice(index + 1)]);
+
       this.$emit('update-column', { cards });
     },
 
-    deleteCard(index) {
+    deleteCard(id) {
+      let index = this.columnItems.findIndex((card) => card.id === id);
       let cards = this.columnItems
         .slice(0, index)
         .concat(this.columnItems.slice(index + 1));
+
       this.$emit('update-column', { cards });
     },
 
