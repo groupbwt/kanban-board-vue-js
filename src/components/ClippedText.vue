@@ -1,10 +1,10 @@
 <template>
   <p class="clipped-text">
-    <span v-html="itemText"></span>
+    <span v-html="itemText"></span> <br />
     <a
       v-if="needClipButton"
       href="#"
-      class="clipped-text__toggle-link"
+      class="clipped-text__toggle-link active-element"
       @click.prevent="toggle"
     >
       {{ isClipped ? 'show more' : 'show less' }}
