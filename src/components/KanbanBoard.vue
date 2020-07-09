@@ -1,8 +1,8 @@
 <template>
   <ul class="kanban-board__columns-list">
     <KanbanBoardColumn
-      v-for="(column, index) in kanbanBoard"
-      :key="index"
+      v-for="column in kanbanBoard"
+      :key="column.id"
       :title="column.title"
       :cards="column.cards"
       @store-column="(data) => storeColumn(index, data)"

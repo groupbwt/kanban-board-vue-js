@@ -64,9 +64,9 @@
         @end="isDragging = false"
       >
         <KanbanBoardColumnCard
-          v-for="(cardTitle, index) in columnItems"
-          :key="index"
-          :title="cardTitle"
+          v-for="card in columnItems"
+          :key="card.id"
+          :title="card.title"
           @update-card="(data) => updateCard(index, data)"
           @delete-card="() => deleteCard(index)"
         />
@@ -225,7 +225,7 @@ export default {
 
       if (validationResult.valid) {
         let title = this.formData.columnTitle;
-        this.$emit('store-column', { title });
+        this.$emit('store-column', { id: Date.now(), title });
         this.resetTitleForm();
       }
     },
@@ -234,7 +234,10 @@ export default {
       const validationResult = await this.$refs.cardForm.validate();
 
       if (validationResult.valid) {
-        let cards = [...this.columnItems, this.formData.cardTitle];
+        let cards = [
+          ...this.columnItems,
+          { id: Date.now(), title: this.formData.cardTitle },
+        ];
         this.$emit('update-column', { cards });
         this.showCardForm = false;
         this.resetCardForm();
