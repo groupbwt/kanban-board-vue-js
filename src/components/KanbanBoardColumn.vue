@@ -7,7 +7,7 @@
           v-slot="{ errors, failed }"
           name="title"
           mode="passive"
-          rules="required"
+          rules="required|uniqueColumnName"
         >
           <input
             ref="titleField"
@@ -132,7 +132,7 @@
 
 <script>
 import Draggable from 'vuedraggable';
-import { ValidationProvider } from 'vee-validate';
+import { ValidationProvider, extend } from 'vee-validate';
 import KanbanBoardColumnCard from './KanbanBoardColumnCard.vue';
 import ModalWindow from './ModalWindow.vue';
 
@@ -171,6 +171,9 @@ export default {
   },
 
   computed: {
+    columns() {
+      return this.$store.state.columns.map((column) => column.title);
+    },
     columnItems: {
       get() {
         return this.cards;
@@ -189,6 +192,15 @@ export default {
     if (this.showTitleForm) {
       this.$refs.titleField.focus();
     }
+
+    // register custom validation rule
+    extend('uniqueColumnName', (value) => {
+      if (this.columns.indexOf(value) === -1) {
+        return true;
+      }
+
+      return this.$t('validation.uniqueColumnName');
+    });
   },
 
   methods: {

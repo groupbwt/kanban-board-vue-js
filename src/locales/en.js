@@ -17,7 +17,10 @@ const translations = {
     title: 'Enter column title',
     card: 'Enter card title',
   },
-  validation: en.messages,
+  validation: {
+    uniqueColumnName: 'Column title must be unique',
+    ...en.messages,
+  },
   confirmation: {
     column: 'Are you sure you want to delete this column?',
     card: 'Are you sure you want to delete this card?',
