@@ -85,7 +85,7 @@
   }
 }
 
-.kanban-board__card-wrapper--drag .kanban-board__card {
+.kanban-board__card-wrapper--drag[draggable='true'] .kanban-board__card {
   transform: rotate(5deg);
 }
 
