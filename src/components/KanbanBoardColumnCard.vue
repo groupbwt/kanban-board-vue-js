@@ -24,7 +24,7 @@
       </ValidationProvider>
 
       <div v-else class="kanban-board__card-content">
-        <ClippedText :value="title" />
+        <ClippedText ref="title" :value="title" />
       </div>
 
       <div class="kanban-board__card-actions">

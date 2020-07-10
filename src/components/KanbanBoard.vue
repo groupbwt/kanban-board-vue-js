@@ -10,19 +10,21 @@
       @delete-column="(save) => deleteColumn(column.id, save)"
     />
 
-    <li class="kanban-board__column">
-      <div class="kanban-board__column-footer">
-        <button
-          class="kanban-board__add-button active-element"
-          @click="addColumn"
-        >
-          <img src="../assets/static/icons/plus.svg" alt="plus icon" />
-          {{
-            kanbanBoard.length
-              ? $t('buttons.addColumn')
-              : $t('buttons.addFirstColumn')
-          }}
-        </button>
+    <li class="kanban-board__column-wrapper">
+      <div class="kanban-board__column">
+        <div class="kanban-board__column-footer">
+          <button
+            class="kanban-board__add-button active-element"
+            @click="addColumn"
+          >
+            <img src="../assets/static/icons/plus.svg" alt="plus icon" />
+            {{
+              kanbanBoard.length
+                ? $t('buttons.addColumn')
+                : $t('buttons.addFirstColumn')
+            }}
+          </button>
+        </div>
       </div>
     </li>
   </ul>

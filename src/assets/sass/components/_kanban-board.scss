@@ -12,12 +12,19 @@
   padding: 15px;
 }
 
+.kanban-board__column-wrapper {
+  min-width: 272px;
+  padding: 10px;
+
+  &:last-child {
+    padding-right: 25px;
+  }
+}
+
 .kanban-board__column {
   display: flex;
-  flex: 0 0 272px;
   flex-flow: column;
   max-height: calc(100vh - 50px);
-  margin: 10px;
   background: #dfe3e6;
   border-radius: 3px;
 }
