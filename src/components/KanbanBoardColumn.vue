@@ -66,8 +66,6 @@
         >
           <KanbanBoardColumnCard
             v-for="card in columnItems"
-            :id="card.id"
-            :ref="`card-${card.id}`"
             :key="card.id"
             :title="card.title"
             @update-card="(data) => updateCard(card.id, data)"
@@ -281,14 +279,7 @@ export default {
       });
     },
 
-    onDragStart(event) {
-      let target = this.$refs[`card-${event.item.id}`][0] || null;
-
-      // clip card text on drag
-      if (target) {
-        target.$refs.title.isClipped = true;
-      }
-
+    onDragStart() {
       this.isDragging = true;
     },
 

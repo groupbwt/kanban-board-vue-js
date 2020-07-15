@@ -1,5 +1,5 @@
 <template>
-  <li class="kanban-board__card-wrapper">
+  <li ref="root" class="kanban-board__card-wrapper">
     <div class="kanban-board__card">
       <ValidationProvider
         v-if="editMode"
@@ -70,11 +70,33 @@ export default {
 
   data() {
     return {
+      observer: null,
       editMode: false,
       formData: {
         title: '',
       },
     };
+  },
+
+  mounted() {
+    this.observer = new MutationObserver((mutations) => {
+      for (let mutation of mutations) {
+        const newValue = mutation.target.getAttribute(mutation.attributeName);
+        this.$nextTick(() => {
+          this.onClassChange(newValue, mutation.oldValue);
+        });
+      }
+    });
+
+    this.observer.observe(this.$refs.root, {
+      attributes: true,
+      attributeOldValue: true,
+      attributeFilter: ['class'],
+    });
+  },
+
+  beforeDestroy() {
+    this.observer.disconnect();
   },
 
   methods: {
@@ -115,6 +137,17 @@ export default {
       this.$refs.confirmModal.open({}, () => {
         this.$emit('delete-card');
       });
+    },
+
+    onClassChange(classAttr) {
+      const classList = classAttr.split(' ');
+
+      if (
+        classList.includes('kanban-board__card-wrapper--ghost') ||
+        classList.includes('kanban-board__card-wrapper--drag')
+      ) {
+        this.$refs.title.isClipped = true;
+      }
     },
   },
 };
