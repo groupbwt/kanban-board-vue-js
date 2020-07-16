@@ -4,9 +4,10 @@
       <ValidationProvider
         v-if="editMode"
         ref="editForm"
-        v-slot="{ errors, failed }"
+        v-slot="{ errors, failed, validate }"
         name="card"
         rules="required"
+        mode="lazy"
       >
         <input
           ref="editField"
@@ -19,6 +20,7 @@
             { 'is-invalid': failed },
           ]"
           @keydown.enter.prevent="submitEditForm"
+          @input="validate"
         />
         <div class="invalid-feedback">{{ errors[0] }}</div>
       </ValidationProvider>

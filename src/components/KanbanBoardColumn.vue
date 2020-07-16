@@ -5,9 +5,10 @@
         <div class="kanban-board__column-block">
           <ValidationProvider
             ref="titleForm"
-            v-slot="{ errors, failed }"
+            v-slot="{ errors, failed, validate }"
             name="title"
             rules="required|uniqueColumnName"
+            mode="lazy"
           >
             <input
               ref="titleField"
@@ -16,6 +17,7 @@
               :placeholder="$t('placeholders.title')"
               :class="['kanban-board__form-control', { 'is-invalid': failed }]"
               @keydown.enter.prevent="submitTitleForm"
+              @input="validate"
             />
             <div class="invalid-feedback">{{ errors[0] }}</div>
           </ValidationProvider>
@@ -76,9 +78,10 @@
         <div v-if="showCardForm" class="kanban-board__column-block">
           <ValidationProvider
             ref="cardForm"
-            v-slot="{ errors, failed }"
+            v-slot="{ errors, failed, validate }"
             name="card"
             rules="required"
+            mode="lazy"
           >
             <textarea
               ref="cardField"
@@ -89,6 +92,7 @@
                 { 'is-invalid': failed },
               ]"
               @keydown.enter.prevent="submitCardForm"
+              @input="validate"
             ></textarea>
             <div class="invalid-feedback">{{ errors[0] }}</div>
           </ValidationProvider>
