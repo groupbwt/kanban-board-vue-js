@@ -13,7 +13,8 @@
 }
 
 .kanban-board__column-wrapper {
-  width: 272px;
+  min-width: 272px;
+  max-width: 272px;
   padding: 10px;
 
   &:last-child {
@@ -94,8 +95,12 @@
   }
 }
 
-.kanban-board__card-wrapper--drag[draggable='true'] .kanban-board__card {
-  transform: rotate(5deg);
+.kanban-board__card-wrapper--drag {
+  list-style: none;
+
+  .kanban-board__card {
+    transform: rotate(5deg);
+  }
 }
 
 .kanban-board__card-content {

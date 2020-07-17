@@ -58,10 +58,12 @@
           ]"
           tag="ul"
           group="cards"
+          handle=".kanban-board__card-content"
+          filter=".clipped-text__toggle-link"
           ghost-class="kanban-board__card-wrapper--ghost"
-          drag-class="kanban-board__card-wrapper--drag"
-          :filter="filterSelectors"
-          :prevent-on-filter="false"
+          fallback-class="kanban-board__card-wrapper--drag"
+          :force-fallback="true"
+          :fallback-on-body="true"
           :invert-swap="true"
           @start="onDragStart"
           @end="onDragEnd"
@@ -170,8 +172,6 @@ export default {
         columnTitle: '',
         cardTitle: '',
       },
-      filterSelectors:
-        '.kanban-board__form-control--edit-input, .kanban-board__card-actions, .modal',
     };
   },
 
