@@ -84,6 +84,7 @@ export default {
     this.observer = new MutationObserver((mutations) => {
       for (let mutation of mutations) {
         const newValue = mutation.target.getAttribute(mutation.attributeName);
+
         this.$nextTick(() => {
           this.onClassChange(newValue, mutation.oldValue);
         });
@@ -144,12 +145,22 @@ export default {
     onClassChange(classAttr) {
       const classList = classAttr.split(' ');
 
-      if (
-        classList.includes('kanban-board__card-wrapper--ghost') ||
-        classList.includes('kanban-board__card-wrapper--drag')
-      ) {
+      if (classList.includes('kanban-board__card-wrapper--ghost')) {
         this.$refs.title.isClipped = true;
+        this.clipDragItem();
       }
+    },
+
+    clipDragItem() {
+      const dragItem = document.body.querySelector(
+        '.kanban-board__card-wrapper--drag'
+      );
+
+      dragItem.querySelector(
+        '.clipped-text span'
+      ).textContent = this.$options.filters.clipText(this.title);
+      dragItem.querySelector('.clipped-text__toggle-link').textContent =
+        'show more';
     },
   },
 };
