@@ -19,6 +19,7 @@
         </div>
         <div class="modal__footer">
           <button
+            ref="cancelButton"
             type="button"
             class="modal__footer-button modal__footer-button--secondary active-element"
             @click="onCancel"
@@ -58,6 +59,16 @@ export default {
       isOpened: false,
       options: {},
     };
+  },
+
+  watch: {
+    isOpened(value) {
+      if (value) {
+        this.$nextTick(() => {
+          this.$refs.cancelButton.focus();
+        });
+      }
+    },
   },
 
   methods: {
