@@ -14,6 +14,7 @@
               ref="titleField"
               v-model="formData.columnTitle"
               type="text"
+              maxlength="100"
               :placeholder="$t('placeholders.title')"
               :class="['kanban-board__form-control', { 'is-invalid': failed }]"
               @keydown.enter.prevent="submitTitleForm"
@@ -40,7 +41,7 @@
       </template>
       <template v-else>
         <div class="kanban-board__column-header">
-          <h4 class="kanban-board__column-title">{{ title | clipText }}</h4>
+          <h4 class="kanban-board__column-title">{{ title }}</h4>
           <button
             class="kanban-board__icon-button active-element"
             @click="deleteColumn"
