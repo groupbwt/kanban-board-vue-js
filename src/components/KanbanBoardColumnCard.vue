@@ -1,13 +1,13 @@
 <template>
-  <li class="kanban-board__card-wrapper">
+  <li ref="root" class="kanban-board__card-wrapper">
     <div class="kanban-board__card">
       <ValidationProvider
         v-if="editMode"
         ref="editForm"
-        v-slot="{ errors, failed }"
+        v-slot="{ errors, failed, validate }"
         name="card"
-        mode="passive"
         rules="required"
+        mode="lazy"
       >
         <input
           ref="editField"
@@ -20,12 +20,13 @@
             { 'is-invalid': failed },
           ]"
           @keydown.enter.prevent="submitEditForm"
+          @input="validate"
         />
         <div class="invalid-feedback">{{ errors[0] }}</div>
       </ValidationProvider>
 
       <div v-else class="kanban-board__card-content">
-        <p>{{ title }}</p>
+        <ClippedText ref="title" :value="title" />
       </div>
 
       <div class="kanban-board__card-actions">
@@ -51,6 +52,7 @@
 <script>
 import { ValidationProvider } from 'vee-validate';
 import ModalWindow from './ModalWindow.vue';
+import ClippedText from './ClippedText.vue';
 
 export default {
   name: 'KanbanBoardColumnCard',
@@ -58,6 +60,7 @@ export default {
   components: {
     ValidationProvider,
     ModalWindow,
+    ClippedText,
   },
 
   props: {
@@ -69,11 +72,33 @@ export default {
 
   data() {
     return {
+      observer: null,
       editMode: false,
       formData: {
         title: '',
       },
     };
+  },
+
+  mounted() {
+    this.observer = new MutationObserver((mutations) => {
+      for (let mutation of mutations) {
+        const newValue = mutation.target.getAttribute(mutation.attributeName);
+        this.$nextTick(() => {
+          this.onClassChange(newValue, mutation.oldValue);
+        });
+      }
+    });
+
+    this.observer.observe(this.$refs.root, {
+      attributes: true,
+      attributeOldValue: true,
+      attributeFilter: ['class'],
+    });
+  },
+
+  beforeDestroy() {
+    this.observer.disconnect();
   },
 
   methods: {
@@ -98,7 +123,8 @@ export default {
       const validationResult = await this.$refs.editForm.validate();
 
       if (validationResult.valid) {
-        this.$emit('update-card', this.formData.title);
+        let title = this.formData.title;
+        this.$emit('update-card', { title });
         this.editMode = false;
         this.resetForm();
       }
@@ -113,6 +139,17 @@ export default {
       this.$refs.confirmModal.open({}, () => {
         this.$emit('delete-card');
       });
+    },
+
+    onClassChange(classAttr) {
+      const classList = classAttr.split(' ');
+
+      if (
+        classList.includes('kanban-board__card-wrapper--ghost') ||
+        classList.includes('kanban-board__card-wrapper--drag')
+      ) {
+        this.$refs.title.isClipped = true;
+      }
     },
   },
 };

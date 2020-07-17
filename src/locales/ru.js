@@ -17,7 +17,10 @@ const translations = {
     title: 'Введите название колонки',
     card: 'Введите название карточки',
   },
-  validation: ru.messages,
+  validation: {
+    uniqueColumnName: 'Название колонки должно быть уникальным',
+    ...ru.messages,
+  },
   confirmation: {
     column: 'Вы уверены что хотите удалить эту колонку?',
     card: 'Вы уверены что хотите удалить эту карточку?',

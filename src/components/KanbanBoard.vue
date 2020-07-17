@@ -1,28 +1,30 @@
 <template>
   <ul class="kanban-board__columns-list">
     <KanbanBoardColumn
-      v-for="(column, index) in kanbanBoard"
-      :key="index"
+      v-for="column in kanbanBoard"
+      :key="column.id"
       :title="column.title"
       :cards="column.cards"
-      @store-column="(data) => storeColumn(index, data)"
-      @update-column="(data) => updateColumn(index, data)"
-      @delete-column="(save) => deleteColumn(index, save)"
+      @store-column="(data) => storeColumn(column.id, data)"
+      @update-column="(data) => updateColumn(column.id, data)"
+      @delete-column="(save) => deleteColumn(column.id, save)"
     />
 
-    <li class="kanban-board__column">
-      <div class="kanban-board__column-footer">
-        <button
-          class="kanban-board__add-button active-element"
-          @click="addColumn"
-        >
-          <img src="../assets/static/icons/plus.svg" alt="plus icon" />
-          {{
-            kanbanBoard.length
-              ? $t('buttons.addColumn')
-              : $t('buttons.addFirstColumn')
-          }}
-        </button>
+    <li class="kanban-board__column-wrapper">
+      <div class="kanban-board__column">
+        <div class="kanban-board__column-footer">
+          <button
+            class="kanban-board__add-button active-element"
+            @click="addColumn"
+          >
+            <img src="../assets/static/icons/plus.svg" alt="plus icon" />
+            {{
+              kanbanBoard.length
+                ? $t('buttons.addColumn')
+                : $t('buttons.addFirstColumn')
+            }}
+          </button>
+        </div>
       </div>
     </li>
   </ul>
@@ -59,25 +61,32 @@ export default {
       this.kanbanBoard = [
         ...this.kanbanBoard,
         {
+          id: Date.now(),
           title: '',
           cards: [],
         },
       ];
     },
 
-    storeColumn(index, data) {
+    storeColumn(id, data) {
+      let index = this.kanbanBoard.findIndex((column) => column.id === id);
       let newColumn = Object.assign({}, this.kanbanBoard[index], data);
+
       this.$store.dispatch('storeColumn', { index, newColumn });
       this.updateKanbanBoard(index, newColumn);
     },
 
-    updateColumn(index, data) {
+    updateColumn(id, data) {
+      let index = this.kanbanBoard.findIndex((column) => column.id === id);
       let newColumn = Object.assign({}, this.kanbanBoard[index], data);
+
       this.$store.dispatch('updateColumn', { index, newColumn });
       this.updateKanbanBoard(index, newColumn);
     },
 
-    deleteColumn(index, save = false) {
+    deleteColumn(id, save = false) {
+      let index = this.kanbanBoard.findIndex((column) => column.id === id);
+
       if (save) {
         this.$store.dispatch('deleteColumn', { index });
       }

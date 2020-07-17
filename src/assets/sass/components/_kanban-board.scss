@@ -12,22 +12,34 @@
   padding: 15px;
 }
 
+.kanban-board__column-wrapper {
+  width: 272px;
+  padding: 10px;
+
+  &:last-child {
+    padding-right: 25px;
+  }
+}
+
 .kanban-board__column {
   display: flex;
-  flex: 0 0 272px;
   flex-flow: column;
   max-height: calc(100vh - 50px);
-  margin: 10px;
   background: #dfe3e6;
   border-radius: 3px;
 }
 
 .kanban-board__column-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   padding: 12px 20px 6px 15px;
   font-weight: bold;
+}
+
+.kanban-board__column-title {
+  padding-top: 3px;
+  word-break: break-word;
 }
 
 .kanban-board__cards-list {
@@ -82,7 +94,7 @@
   }
 }
 
-.kanban-board__card-wrapper--drag .kanban-board__card {
+.kanban-board__card-wrapper--drag[draggable='true'] .kanban-board__card {
   transform: rotate(5deg);
 }
 
