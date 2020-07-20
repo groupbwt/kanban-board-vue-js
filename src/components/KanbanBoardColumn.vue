@@ -5,19 +5,20 @@
         <div class="kanban-board__column-block">
           <ValidationProvider
             ref="titleForm"
-            v-slot="{ errors, failed, validate }"
+            v-slot="{ errors, failed }"
             name="title"
             rules="required|uniqueColumnName"
             mode="lazy"
           >
             <input
               ref="titleField"
-              v-model="formData.columnTitle"
+              :value="formData.columnTitle"
               type="text"
+              maxlength="100"
               :placeholder="$t('placeholders.title')"
               :class="['kanban-board__form-control', { 'is-invalid': failed }]"
               @keydown.enter.prevent="submitTitleForm"
-              @input="validate"
+              @input="onColumnTitleInput($event)"
             />
             <div class="invalid-feedback">{{ errors[0] }}</div>
           </ValidationProvider>
@@ -40,7 +41,7 @@
       </template>
       <template v-else>
         <div class="kanban-board__column-header">
-          <h4 class="kanban-board__column-title">{{ title | clipText }}</h4>
+          <h4 class="kanban-board__column-title">{{ title }}</h4>
           <button
             class="kanban-board__icon-button active-element"
             @click="deleteColumn"
@@ -80,21 +81,21 @@
         <div v-if="showCardForm" class="kanban-board__column-block">
           <ValidationProvider
             ref="cardForm"
-            v-slot="{ errors, failed, validate }"
+            v-slot="{ errors, failed }"
             name="card"
             rules="required"
             mode="lazy"
           >
             <textarea
               ref="cardField"
-              v-model="formData.cardTitle"
+              :value="formData.cardTitle"
               :placeholder="$t('placeholders.card')"
               :class="[
                 'kanban-board__form-control kanban-board__form-control--card-input',
                 { 'is-invalid': failed },
               ]"
               @keydown.enter.prevent="submitCardForm"
-              @input="validate"
+              @input="onCardTitleInput($event)"
             ></textarea>
             <div class="invalid-feedback">{{ errors[0] }}</div>
           </ValidationProvider>
@@ -230,6 +231,7 @@ export default {
 
       if (validationResult.valid) {
         let title = this.formData.columnTitle;
+
         this.$emit('store-column', { title });
         this.resetTitleForm();
       }
@@ -265,6 +267,20 @@ export default {
         .concat(this.columnItems.slice(index + 1));
 
       this.$emit('update-column', { cards });
+    },
+
+    onColumnTitleInput(event) {
+      this.formData.columnTitle = event.target.value;
+      this.$nextTick(() => {
+        this.$refs.titleForm.validate();
+      });
+    },
+
+    onCardTitleInput(event) {
+      this.formData.cardTitle = event.target.value;
+      this.$nextTick(() => {
+        this.$refs.cardForm.validate();
+      });
     },
 
     resetTitleForm() {

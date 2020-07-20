@@ -4,14 +4,14 @@
       <ValidationProvider
         v-if="editMode"
         ref="editForm"
-        v-slot="{ errors, failed, validate }"
+        v-slot="{ errors, failed }"
         name="card"
         rules="required"
         mode="lazy"
       >
         <input
           ref="editField"
-          v-model="formData.title"
+          :value="formData.title"
           type="text"
           :placeholder="$t('placeholders.card')"
           :class="[
@@ -20,7 +20,7 @@
             { 'is-invalid': failed },
           ]"
           @keydown.enter.prevent="submitEditForm"
-          @input="validate"
+          @input="onTitleInput($event)"
         />
         <div class="invalid-feedback">{{ errors[0] }}</div>
       </ValidationProvider>
@@ -129,6 +129,13 @@ export default {
         this.editMode = false;
         this.resetForm();
       }
+    },
+
+    onTitleInput(event) {
+      this.formData.title = event.target.value;
+      this.$nextTick(() => {
+        this.$refs.editForm.validate();
+      });
     },
 
     resetForm() {
